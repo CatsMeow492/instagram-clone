@@ -18,12 +18,16 @@ function Header() {
 }
 
 const AppHeader = styled.div`
+
   margin: 0;
   background-color: white;
+  padding: 20px;
+  border-bottom: 1px solid lightgray;
 
   img {
     object-fit: contain;
   }
+
 `;
 
 export default Header;
