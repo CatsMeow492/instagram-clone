@@ -13,6 +13,9 @@ yarn add @reduxjs/toolkit
 yarn add react-slick
 yarn add slick-carousel
 npm install -g firebase-tools
+yarn add @emotion/react
+npm install @mui/material
+yarn add @emotion/styled
 
 ColorZilla
 
