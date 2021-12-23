@@ -1,5 +1,7 @@
 20m
 
+These are my personal notes. Normally any terminal commands I use to add libraries or tools I'll put in here a long with other bits of code I thought were particularly interesting or useful.
+
 npx create-react-app@lastest instagram-clone
 
 yarn add styled-components
@@ -15,3 +17,5 @@ npm install -g firebase-tools
 ColorZilla
 
 rfce
+
+object-fit: contain;
