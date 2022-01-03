@@ -1,29 +1,35 @@
-import React from 'react'
+import React, {useState} from 'react'
 import styled from 'styled-components';
 import Avatar from '@mui/material/Avatar';
 import './Post.css';
 
-function Post() {
+function Post({ username, caption, imageUrl }) {
+
+    
+
     return (
         <PostBody>
             <PostHeader>
                 <Avatar
                 className="post_avatar" 
                 alt='username'
-                src='https://lh3.googleusercontent.com/proxy/lHxVo9E7nJ28puugD1rJtLCCuVBrN1Lv9d1YJuWOW6-gH1PBgpkhSHaVH_uRL9kBX7Xt6pD52VAwlTgGr5zVP7yL_LDpBxsVMW1ET9cu0or8Kw3hhbDX2q270ZENs_ZkMEMuad6g' 
+                src='imageUrl' 
                 />
-                <h3>UserName</h3>
+                <h3>{username}</h3>
             </PostHeader>
-            <PostImg src='https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/React-icon.svg/1024px-React-icon.svg.png' alt=''></PostImg>
+            <PostImg src={imageUrl} alt=''></PostImg>
 
-            <PostText><strong>Username:</strong> Caption Lorum Ipsum Dolor</PostText>
+            <PostText><strong>{username}</strong> {caption}</PostText>
 
         </PostBody>
     )
 }
 
 const PostBody = styled.div`
-
+    max-width: 500px;
+    background-color: white;
+    border: 1px solid lightgray;
+    margin-bottom: 45px;
 `;
 
 const PostHeader = styled.div`
@@ -33,12 +39,18 @@ const PostHeader = styled.div`
 `;
 
 const PostImg = styled.img`
+    min-width: 300px;
+    min-height: 300px;
     width: 100%;
+    height: 100%;
     object-fit: contain; 
+    border-top: 1px solid lightgray;
+    border-bottom: 1px solid lightgray;
 `;
 
 const PostText = styled.a`
     font: normal;
+    padding: 20px;
 `;
 
-export default Post
+export default Post;
