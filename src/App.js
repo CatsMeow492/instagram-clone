@@ -26,7 +26,7 @@ function App() {
       <Router>
         <Header />
         {
-          Post.map(posts => (
+          posts.map(post => (
             <Post username={post.username} caption={post.caption} imgUrl={post.imgUrl} />
           ))
         }
