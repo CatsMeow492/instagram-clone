@@ -1,5 +1,5 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './App.css';
 import Header from './components/Header';
 import Post from './components/Post';
@@ -20,9 +20,15 @@ function App() {
     },
 ]); // post hook, fetch post data from state
 
+// useEffect -> runs once when the app loads and jthen doesn't run again
+useEffect(() => {
+
+
+}, [])
+
   return (
     <div className="App">
-
+      <title>instagram-clone</title>
       <Router>
         <Header />
         {
