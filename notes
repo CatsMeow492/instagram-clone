@@ -22,3 +22,7 @@ ColorZilla
 rfce
 
 object-fit: contain;
+
+.onSnapshot(snapshot => {
+    This is a neat function that fires everytime something changes in the db
+})
