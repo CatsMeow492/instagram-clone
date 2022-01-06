@@ -1,30 +1,48 @@
-import React from 'react';
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import React, { useState, useEffect } from 'react';
 import './App.css';
-import styled from 'styled-components';
+import Header from './components/Header';
+import Post from './components/Post';
+import { db } from './firebase';
+
 
 
 function App() {
+  const [posts, setPosts] = useState([]); // post hook, fetch post data from state
+  const [open, setOpen] = useState(false);
+
+// useEffect -> runs once when the app lodads and jthen doesn't run again. Runs a piece jof code based on a specific condition
+useEffect(() => {
+  db.collection('posts').onSnapshot(snapshot => {
+    // every ttime a new post is added, this code fires
+    setPosts(snapshot.docs.map(doc => ({
+      id: doc.id,
+      post: doc.data()
+    })
+    ));
+  })
+}, []);
+
   return (
     <div className="App">
-      
-      <AppHeader>
+        <Modal
+          open={open}
+          onClose={handleClose}
+        >
+          {body}
+        </Modal>
+      <title>instagram-clone</title>
+      <Router>
+        <Header />
+        {
+          posts.map(({id, post}) => (
+            <Post key={id} username={post.username} caption={post.caption} imgUrl={post.imageUrl} />
+          ))
+        }
+      </Router>
 
-        <img className=""
-          src="https://www.instagram.com/static/images/web/mobile_nav_type_logo.png/735145cfe0a4.png"
-          alt="" 
-          />
-
-      </AppHeader>
     </div>
   );
 }
-
-const AppHeader = styled.div`
-  margin: 0;
-
-  img {
-    object-fit: contain;
-  }
-`;
 
 export default App;
