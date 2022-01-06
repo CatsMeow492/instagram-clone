@@ -6,6 +6,7 @@ import Post from './components/Post';
 import { db } from './firebase';
 import { makeStyles } from '@material-ui/core/styles';
 import Modal from '@material-ui/core/Modal';
+import { Button } from '@material-ui/core';
 
 function getModalStyle() {
   const top = 50;
@@ -30,7 +31,7 @@ const useStyles = makeStyles((theme) => ({
 
 function App() {
   const classes = useStyles();
-  const [modalStyle] = React.useState(getModalStyle);
+  const [modalStyle] = useState(getModalStyle);
   const [posts, setPosts] = useState([]); // post hook, fetch post data from state
   const [open, setOpen] = useState(false);
 
@@ -48,26 +49,29 @@ useEffect(() => {
 
 
   return (
+    <>
     <div className="App">
-        <Modal
-          open={open}
-          onClose={() => setOpen(false)}
-        >
-          <div style={modalStyle} className={classes.paper}>
-            <h2>I am a modal</h2>
-          </div>
-        </Modal>
+      <Modal
+        open={open}
+        onClose={() => setOpen(false)}
+      >
+        <div style={modalStyle} className={classes.paper}>
+          <h2>I am a modal</h2>
+        </div>
+      </Modal>
       <title>instagram-clone</title>
       <Router>
         <Header />
-        {
-          posts.map(({id, post}) => (
-            <Post key={id} username={post.username} caption={post.caption} imgUrl={post.imageUrl} />
-          ))
-        }
+        {posts.map(({ id, post }) => (
+          <Post key={id} username={post.username} caption={post.caption} imgUrl={post.imageUrl} />
+        ))}
       </Router>
 
     </div>
+    <Button>
+          Sign Up
+    </Button>
+      </>
   );
 }
 
