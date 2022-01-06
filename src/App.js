@@ -9,6 +9,7 @@ import { db } from './firebase';
 
 function App() {
   const [posts, setPosts] = useState([]); // post hook, fetch post data from state
+  const [open, setOpen] = useState(false);
 
 // useEffect -> runs once when the app lodads and jthen doesn't run again. Runs a piece jof code based on a specific condition
 useEffect(() => {
@@ -24,6 +25,12 @@ useEffect(() => {
 
   return (
     <div className="App">
+        <Modal
+          open={open}
+          onClose={handleClose}
+        >
+          {body}
+        </Modal>
       <title>instagram-clone</title>
       <Router>
         <Header />
