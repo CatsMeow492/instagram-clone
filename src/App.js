@@ -10,7 +10,7 @@ import { db } from './firebase';
 function App() {
   const [posts, setPosts] = useState([]); // post hook, fetch post data from state
 
-// useEffect -> runs once when the app loads and jthen doesn't run again. Runs a piece jof code based on a specific condition
+// useEffect -> runs once when the app lodads and jthen doesn't run again. Runs a piece jof code based on a specific condition
 useEffect(() => {
   db.collection('posts').onSnapshot(snapshot => {
     // every ttime a new post is added, this code fires
