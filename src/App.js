@@ -34,6 +34,9 @@ function App() {
   const [modalStyle] = useState(getModalStyle);
   const [posts, setPosts] = useState([]); // post hook, fetch post data from state
   const [open, setOpen] = useState(false);
+  const [username, setUsername] = useState(false);
+  const [email, setEmail] = useState(false);
+  const [password, setPassword] = useState(false);
 
 // useEffect -> runs once when the app lodads and jthen doesn't run again. Runs a piece jof code based on a specific condition
 useEffect(() => {
@@ -65,13 +68,19 @@ const signUp = (event) => {
               src=""
               alt=""
               />
-              <Input
+              <input
+                placeholder="username"
+                type="text"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+              />
+              <input
                 placeholder="email"
                 type="text"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
               />
-              <Input
+              <input
                 placeholder="password"
                 type="password"
                 value={password}
