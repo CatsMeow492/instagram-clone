@@ -93,9 +93,12 @@ const signUp = (event) => {
       <title>instagram-clone</title>
       <Router>
         <Header />
-        {posts.map(({ id, post }) => (
+        <h1> hi </h1>
+        {
+        posts.map(({ id, post }) => (
           <Post key={id} username={post.username} caption={post.caption} imgUrl={post.imageUrl} />
-        ))}
+        ))
+        }
       </Router>
 
     </div>
