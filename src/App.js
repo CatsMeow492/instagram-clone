@@ -47,6 +47,9 @@ useEffect(() => {
   })
 }, []);
 
+const signUp = (event) => {
+
+}
 
   return (
     <>
@@ -56,6 +59,25 @@ useEffect(() => {
         onClose={() => setOpen(false)}
       >
         <div style={modalStyle} className={classes.paper}>
+          <center>
+            <img 
+              className="app_headerImage"
+              src=""
+              alt=""
+              />
+              <Input
+                placeholder="email"
+                type="text"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+              />
+              <Input
+                placeholder="password"
+                type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+              />
+          </center>
           <h2>I am a modal</h2>
         </div>
       </Modal>
@@ -68,9 +90,7 @@ useEffect(() => {
       </Router>
 
     </div>
-    <Button>
-          Sign Up
-    </Button>
+    <Button onClick={() => setOpen(true)}>Sign Up</Button>
       </>
   );
 }
