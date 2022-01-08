@@ -4,9 +4,10 @@ import './App.css';
 import Header from './components/Header';
 import Post from './components/Post';
 import { db } from './firebase';
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/styles';
 import Modal from '@material-ui/core/Modal';
 import { Button } from '@material-ui/core';
+import styled from 'styled-components';
 
 function getModalStyle() {
   const top = 50;
@@ -34,6 +35,9 @@ function App() {
   const [modalStyle] = useState(getModalStyle);
   const [posts, setPosts] = useState([]); // post hook, fetch post data from state
   const [open, setOpen] = useState(false);
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState('');
 
 // useEffect -> runs once when the app lodads and jthen doesn't run again. Runs a piece jof code based on a specific condition
 useEffect(() => {
@@ -66,6 +70,12 @@ const signUp = (event) => {
               alt=""
               />
               <Input
+                placeholder="text"
+                type="username"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+              />
+              <Input
                 placeholder="email"
                 type="text"
                 value={email}
@@ -94,5 +104,9 @@ const signUp = (event) => {
       </>
   );
 }
+
+const Input = styled.input`
+
+`;
 
 export default App;
