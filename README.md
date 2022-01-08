@@ -1,6 +1,8 @@
 # instagram-clone
     
 This will be a clone of instagram built using a React front-end on a NodeJS backend with the database hosted on firebase.  I made this to practice React and Node and also to experiment with authentication functions built into firebase. If you find the styles confusing it's because I used 'styled-components.'
+
+The real takeaway from this project is the awesome and easy to do authentication from firebase.
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
