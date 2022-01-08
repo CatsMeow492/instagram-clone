@@ -6,8 +6,8 @@ import Post from './components/Post';
 import { db } from './firebase';
 import { makeStyles } from '@material-ui/styles';
 import Modal from '@material-ui/core/Modal';
-import { Button } from '@material-ui/core';
-import styled from 'styled-components';
+import { Button, Input } from '@material-ui/core';
+
 
 function getModalStyle() {
   const top = 50;
@@ -69,9 +69,10 @@ const signUp = (event) => {
               src=""
               alt=""
               />
-              <Input
-                placeholder="text"
-                type="username"
+          </center>
+          <Input
+                placeholder="username"
+                type="text"
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
               />
@@ -87,7 +88,6 @@ const signUp = (event) => {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
               />
-          </center>
           <h2>I am a modal</h2>
         </div>
       </Modal>
@@ -105,8 +105,5 @@ const signUp = (event) => {
   );
 }
 
-const Input = styled.input`
-
-`;
 
 export default App;
