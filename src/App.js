@@ -6,7 +6,7 @@ import Post from './components/Post';
 import { db, auth } from './firebase';
 import { makeStyles } from '@material-ui/styles';
 import Modal from '@material-ui/core/Modal';
-import { Button, Input } from '@material-ui/core';
+import { Button, Input, Box } from '@material-ui/core';
 
 
 function getModalStyle() {
@@ -21,13 +21,16 @@ function getModalStyle() {
 
 const useStyles = makeStyles((theme) => ({
   paper: {
-    position: 'absolute',
-    width: 400,
-    backgroundColor: theme.palette.background.paper,
-    border: '2px solid #000',
-    boxShadow: theme.shadows[5],
-    padding: theme.spacing(2, 4, 3),
-  },
+  position: 'absolute',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+  width: 400,
+  bgcolor: 'background.paper',
+  border: '2px solid #000',
+  boxShadow: 24,
+  p: 4,
+  }
 }));
 
 function App() {
@@ -41,7 +44,7 @@ function App() {
   const [user, setUser] = useState(null);
 
   useEffect(() => {
-    auth.onAuthStateChagned((authUser) => {
+    const unsubscribe = auth.onAuthStateChanged((authUser) => {
       if (authUser) {
         // User has logged in...
         console.log(authUser);
@@ -51,7 +54,7 @@ function App() {
           // dont update username
         } else {
           // if we just created someone
-          returtn authUser.updateProfile({
+          return authUser.updateProfile({
             displayName: username,
           });
         }
@@ -60,6 +63,10 @@ function App() {
         setUser(null);
       }
     }) 
+    return () => {
+      // perform some cleanup actions before refiring useEffect
+      unsubscribe();
+    }
   }, [user, username]);
 
 // useEffect -> runs once when the app lodads and jthen doesn't run again. Runs a piece jof code based on a specific condition
@@ -78,7 +85,7 @@ const signUp = (event) => {
   event.preventDefault();
   auth
     .createUserWithEmailAndPassword(email, password); // This comes with cool back-end validation
-    .catch((error) => alert(error.message));
+    // .catch((error) => alert(error.message)); don't use this until we can figure out why it's not working, could just need a try statement with it
 }
 
   return (
@@ -93,7 +100,7 @@ const signUp = (event) => {
             <center>
               <img 
                 className="app_headerImage"
-                src=""
+                src="https://www.instagram.com/static/images/web/mobile_nav_type_logo.png/735145cfe0a4.png"
                 alt=""
                 />
             </center>
@@ -122,13 +129,13 @@ const signUp = (event) => {
       <title>instagram-clone</title>
       <Router>
         <Header />
+        <Button onClick={() => setOpen(true)}>Sign Up</Button>
         {posts.map(({ id, post }) => (
           <Post key={id} username={post.username} caption={post.caption} imgUrl={post.imageUrl} />
         ))}
       </Router>
 
     </div>
-    <Button onClick={() => setOpen(true)}>Sign Up</Button>
       </>
   );
 }
