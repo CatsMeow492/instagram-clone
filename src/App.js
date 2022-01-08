@@ -84,8 +84,13 @@ useEffect(() => {
 const signUp = (event) => {
   event.preventDefault();
   auth
-    .createUserWithEmailAndPassword(email, password); // This comes with cool back-end validation
-    // .catch((error) => alert(error.message)); don't use this until we can figure out why it's not working, could just need a try statement with it
+    .createUserWithEmailAndPassword(email, password) // This comes with cool back-end validation
+    .then((authUser) => {
+      return authUser.user.updateProfile({
+        displayName: username
+      })
+    })
+    .catch((error) => alert(error.message)); // don't use this until we can figure out why it's not working, could just need a try statement with it
 }
 
   return (
