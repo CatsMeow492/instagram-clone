@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import './App.css';
 import Header from './components/Header';
 import Post from './components/Post';
-import { db } from './firebase';
+import { db, auth } from './firebase';
 import { makeStyles } from '@material-ui/styles';
 import Modal from '@material-ui/core/Modal';
 import { Button, Input } from '@material-ui/core';
@@ -38,6 +38,20 @@ function App() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [email, setEmail] = useState('');
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    auth.onAuthStateChagned((authUser) => {
+      if (authUser) {
+        // User has logged in...
+        console.log(authUser);
+        setUser(authUser);
+      } else {
+        // user has logged out...
+        setUser(null);
+      }
+    }) 
+  }, []);
 
 // useEffect -> runs once when the app lodads and jthen doesn't run again. Runs a piece jof code based on a specific condition
 useEffect(() => {
@@ -52,7 +66,10 @@ useEffect(() => {
 }, []);
 
 const signUp = (event) => {
-
+  event.preventDefault();
+  auth
+    .createUserWithEmailAndPassword(email, password); // This comes with cool back-end validation
+    .catch((error) => alert(error.message));
 }
 
   return (
@@ -63,32 +80,34 @@ const signUp = (event) => {
         onClose={() => setOpen(false)}
       >
         <div style={modalStyle} className={classes.paper}>
-          <center>
-            <img 
-              className="app_headerImage"
-              src=""
-              alt=""
-              />
-          </center>
-          <Input
-                placeholder="username"
-                type="text"
-                value={username}
-                onChange={(e) => setUsername(e.target.value)}
-              />
-              <Input
-                placeholder="email"
-                type="text"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-              />
-              <Input
-                placeholder="password"
-                type="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-              />
-          <h2>I am a modal</h2>
+          <form className="app_signup">
+            <center>
+              <img 
+                className="app_headerImage"
+                src=""
+                alt=""
+                />
+            </center>
+            <Input
+                  placeholder="username"
+                  type="text"
+                  value={username}
+                  onChange={(e) => setUsername(e.target.value)}
+                />
+                <Input
+                  placeholder="email"
+                  type="text"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                />
+                <Input
+                  placeholder="password"
+                  type="password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                />
+                <Button type="submit" onClick={signUp}>Sign Up</Button>
+              </form>
         </div>
       </Modal>
       <title>instagram-clone</title>
