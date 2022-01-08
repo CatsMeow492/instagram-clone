@@ -46,12 +46,21 @@ function App() {
         // User has logged in...
         console.log(authUser);
         setUser(authUser);
+
+        if (authUser.displayName) {
+          // dont update username
+        } else {
+          // if we just created someone
+          returtn authUser.updateProfile({
+            displayName: username,
+          });
+        }
       } else {
         // user has logged out...
         setUser(null);
       }
     }) 
-  }, []);
+  }, [user, username]);
 
 // useEffect -> runs once when the app lodads and jthen doesn't run again. Runs a piece jof code based on a specific condition
 useEffect(() => {
