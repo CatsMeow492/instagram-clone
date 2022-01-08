@@ -82,7 +82,9 @@ useEffect(() => {
 }, []);
 
 const signUp = (event) => {
+
   event.preventDefault();
+
   auth
     .createUserWithEmailAndPassword(email, password) // This comes with cool back-end validation
     .then((authUser) => {
@@ -90,7 +92,7 @@ const signUp = (event) => {
         displayName: username
       })
     })
-    .catch((error) => alert(error.message)); // don't use this until we can figure out why it's not working, could just need a try statement with it
+    .catch((error) => alert(error.message)); 
 }
 
   return (
@@ -109,6 +111,12 @@ const signUp = (event) => {
                 alt=""
                 />
             </center>
+
+            {user ? (
+              <Button onClick={() => setOpen(true)}> Log Out  </Button>
+            ):
+            
+            }
             <Input
                   placeholder="username"
                   type="text"
