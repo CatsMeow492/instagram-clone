@@ -38,6 +38,7 @@ function App() {
   const [modalStyle] = useState(getModalStyle);
   const [posts, setPosts] = useState([]); // post hook, fetch post data from state
   const [open, setOpen] = useState(false);
+  const [openSignIn, setOpenSignIn] = useState('');
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [email, setEmail] = useState('');
