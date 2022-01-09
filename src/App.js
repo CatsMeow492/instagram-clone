@@ -113,10 +113,10 @@ const signUp = (event) => {
             </center>
 
             {user ? (
-              <Button onClick={() => setOpen(true)}> Log Out  </Button>
-            ):
-            
-            }
+              <Button onClick={() => setOpen(true)}>Log Out</Button>
+            ): (
+              <Button onClick={() => setOpen(true)}>Sign Up</Button>
+            )}
             <Input
                   placeholder="username"
                   type="text"
