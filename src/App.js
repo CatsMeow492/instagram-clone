@@ -101,7 +101,7 @@ const signUp = (event) => {
     <div className="App">
       <Modal
         open={openSignIn}
-        onClose={() => setOpen(false)}
+        onClose={() => setOpenSignIn(false)}
       >
         <div style={modalStyle} className={classes.paper}>
           <form className="app_signup">
