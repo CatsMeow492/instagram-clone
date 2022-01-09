@@ -96,6 +96,10 @@ const signUp = (event) => {
     .catch((error) => alert(error.message)); 
 }
 
+const signIn = (event) => {
+  event.preventDefault();
+}
+
   return (
     <>
     <div className="App">
