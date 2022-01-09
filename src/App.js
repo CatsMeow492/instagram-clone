@@ -113,9 +113,12 @@ const signUp = (event) => {
             </center>
 
             {user ? (
-              <Button onClick={() => setOpen(true)}>Log Out</Button>
+              <Button onClick={() => auth.signOut()}>Log Out</Button>
             ): (
+              <div className="app_loginContainer"> 
+              <Button onClick={() => setOpen(true)}>Sign In</Button>
               <Button onClick={() => setOpen(true)}>Sign Up</Button>
+              </div>
             )}
             <Input
                   placeholder="username"
