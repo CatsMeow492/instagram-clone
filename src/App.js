@@ -100,7 +100,7 @@ const signUp = (event) => {
     <>
     <div className="App">
       <Modal
-        open={open}
+        open={openSignIn}
         onClose={() => setOpen(false)}
       >
         <div style={modalStyle} className={classes.paper}>
