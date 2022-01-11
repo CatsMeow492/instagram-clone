@@ -107,6 +107,11 @@ const signIn = (event) => {
 }
 
   return (
+
+    {/* I want to have ... */}
+    {/* some kind of caption input */}
+    {/* some kind of file picker */}
+    {/* Post button */}
     <>
     <div className="App">
       <Modal
