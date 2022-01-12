@@ -8,7 +8,7 @@ yarn add styled-components
 yarn add react-router-dom
 yarn add firebase
 yarn add firebase-tools
-yarn add react-redux
+yarn add react-redux    
 yarn add @reduxjs/toolkit
 yarn add react-slick
 yarn add slick-carousel
