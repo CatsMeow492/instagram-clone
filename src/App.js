@@ -7,6 +7,7 @@ import { db, auth } from './firebase';
 import { makeStyles } from '@material-ui/styles';
 import Modal from '@material-ui/core/Modal';
 import { Button, Input, Box } from '@material-ui/core';
+import ImageUpload from './components/ImageUpload';
 
 
 function getModalStyle() {
@@ -108,11 +109,8 @@ const signIn = (event) => {
 
   return (
 
-    {/* I want to have ... */}
-    {/* some kind of caption input */}
-    {/* some kind of file picker */}
-    {/* Post button */}
     <>
+    <ImageUpload />
     <div className="App">
       <Modal
         open={openSignIn}
