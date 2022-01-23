@@ -110,8 +110,15 @@ const signIn = (event) => {
   return (
 
     <>
-    <ImageUpload />
     <div className="App">
+
+      
+      {user.displayName ? (
+        <ImageUpload username={user.displayName} />
+      ):(
+        <h3>Login to Upload</h3>
+      )}
+      
       <Modal
         open={openSignIn}
         onClose={() => setOpenSignIn(false)}
