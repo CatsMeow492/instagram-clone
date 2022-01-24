@@ -73,7 +73,7 @@ function App() {
 
 // useEffect -> runs once when the app lodads and jthen doesn't run again. Runs a piece jof code based on a specific condition
 useEffect(() => {
-  db.collection('posts').onSnapshot(snapshot => {
+  db.collection('posts').orderBy('timestamp', 'desc').onSnapshot(snapshot => {
     // every ttime a new post is added, this code fires
     setPosts(snapshot.docs.map(doc => ({
       id: doc.id,
@@ -111,17 +111,9 @@ const signIn = (event) => {
 
     <>
     <div className="App">
-
-      
-      {user.displayName ? (
-        <ImageUpload username={user.displayName} />
-      ):(
-        <h3>Login to Upload</h3>
-      )}
-      
       <Modal
-        open={openSignIn}
-        onClose={() => setOpenSignIn(false)}
+        open={open}
+        onClose={() => setOpen(false)}
       >
         <div style={modalStyle} className={classes.paper}>
           <form className="app_signup">
@@ -132,15 +124,6 @@ const signIn = (event) => {
                 alt=""
                 />
             </center>
-
-            {user ? (
-              <Button onClick={() => auth.signOut()}>Log Out</Button>
-            ): (
-              <div className="app_loginContainer"> 
-              <Button onClick={() => setOpen(true)}>Sign In</Button>
-              <Button onClick={() => setOpen(true)}>Sign Up</Button>
-              </div>
-            )}
             <Input
                   placeholder="username"
                   type="text"
@@ -166,11 +149,16 @@ const signIn = (event) => {
       <title>instagram-clone</title>
       <Router>
         <Header />
-        <Button onClick={() => setOpen(true)}>Sign Up</Button>
         {posts.map(({ id, post }) => (
           <Post key={id} username={post.username} caption={post.caption} imgUrl={post.imageUrl} />
         ))}
       </Router>
+
+      {user? (
+        <ImageUpload username={user.displayName} />
+      ):(
+        <h3>Login to Upload</h3>
+      )}
 
     </div>
       </>
