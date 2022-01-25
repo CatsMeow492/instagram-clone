@@ -19,6 +19,7 @@ function ImageUpload({username}) {
     };
 
     const handleUpload = () => {
+        // eslint-disable-next-line no-template-curly-in-string
         const uploadTask = storage.ref('images/${image.name}').put(image);
         uploadTask.on(
             "state_changed",

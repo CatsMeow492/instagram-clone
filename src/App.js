@@ -4,157 +4,45 @@ import './App.css';
 import Header from './components/Header';
 import Post from './components/Post';
 import { db, auth } from './firebase';
-import { makeStyles } from '@material-ui/styles';
-import Modal from '@material-ui/core/Modal';
 import { Button, Input, Box } from '@material-ui/core';
 import ImageUpload from './components/ImageUpload';
 
-
-function getModalStyle() {
-  const top = 50;
-  const left = 50;
-  return {
-    top: `${top}%`,
-    left: `${left}%`,
-    transform: `translate(-${top}%, -${left}%)`,
-  };
-}
-
-const useStyles = makeStyles((theme) => ({
-  paper: {
-  position: 'absolute',
-  top: '50%',
-  left: '50%',
-  transform: 'translate(-50%, -50%)',
-  width: 400,
-  bgcolor: 'background.paper',
-  border: '2px solid #000',
-  boxShadow: 24,
-  p: 4,
-  }
-}));
-
 function App() {
-  const classes = useStyles();
-  const [modalStyle] = useState(getModalStyle);
   const [posts, setPosts] = useState([]); // post hook, fetch post data from state
-  const [open, setOpen] = useState(false);
-  const [openSignIn, setOpenSignIn] = useState('');
   const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
-  const [email, setEmail] = useState('');
   const [user, setUser] = useState(null);
 
+  // useEffect -> runs once when the app lodads and jthen doesn't run again. Runs a piece jof code based on a specific condition
   useEffect(() => {
-    const unsubscribe = auth.onAuthStateChanged((authUser) => {
-      if (authUser) {
-        // User has logged in...
-        console.log(authUser);
-        setUser(authUser);
-
-        if (authUser.displayName) {
-          // dont update username
-        } else {
-          // if we just created someone
-          return authUser.updateProfile({
-            displayName: username,
-          });
-        }
-      } else {
-        // user has logged out...
-        setUser(null);
-      }
-    }) 
-    return () => {
-      // perform some cleanup actions before refiring useEffect
-      unsubscribe();
-    }
-  }, [user, username]);
-
-// useEffect -> runs once when the app lodads and jthen doesn't run again. Runs a piece jof code based on a specific condition
-useEffect(() => {
-  db.collection('posts').orderBy('timestamp', 'desc').onSnapshot(snapshot => {
-    // every ttime a new post is added, this code fires
-    setPosts(snapshot.docs.map(doc => ({
-      id: doc.id,
-      post: doc.data()
-    })
-    ));
-  })
-}, []);
-
-const signUp = (event) => {
-
-  event.preventDefault();
-
-  auth
-    .createUserWithEmailAndPassword(email, password) // This comes with cool back-end validation
-    .then((authUser) => {
-      return authUser.user.updateProfile({
-        displayName: username
+    db.collection('posts').orderBy('timestamp', 'desc').onSnapshot(snapshot => {
+      // every ttime a new post is added, this code fires
+      setPosts(snapshot.docs.map(doc => ({
+        id: doc.id,
+        post: doc.data()
+        })
+        ));
       })
-    })
-    .catch((error) => alert(error.message)); 
-    setOpen(false);
-}
+    }, []);
 
-const signIn = (event) => {
-  event.preventDefault();
-  auth
-    .signInWithEmailAndPassword(email, password)
-    .catch((error) => alert(error.message));
-  
-    setOpenSignIn(false);
-}
+  const displayPosts = posts.map(({ id, post }) => (
+    <Post key={id} username={post.username} caption={post.caption} imgUrl={post.imageUrl} />
+  ));
 
   return (
 
     <>
-    <div className="App">
-      <Modal
-        open={open}
-        onClose={() => setOpen(false)}
-      >
-        <div style={modalStyle} className={classes.paper}>
-          <form className="app_signup">
-            <center>
-              <img 
-                className="app_headerImage"
-                src="https://www.instagram.com/static/images/web/mobile_nav_type_logo.png/735145cfe0a4.png"
-                alt=""
-                />
-            </center>
-            <Input
-                  placeholder="username"
-                  type="text"
-                  value={username}
-                  onChange={(e) => setUsername(e.target.value)}
-                />
-                <Input
-                  placeholder="email"
-                  type="text"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                />
-                <Input
-                  placeholder="password"
-                  type="password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                />
-                <Button type="submit" onClick={signUp}>Sign Up</Button>
-              </form>
-        </div>
-      </Modal>
-      <title>instagram-clone</title>
-      <Router>
-        <Header />
-        {posts.map(({ id, post }) => (
-          <Post key={id} username={post.username} caption={post.caption} imgUrl={post.imageUrl} />
-        ))}
-      </Router>
 
-      {user? (
+    <Header />
+
+    <div className="App">
+        <h3>Post should be loading here</h3>
+        <div className="app__posts">
+          {
+            displayPosts
+          }
+        </div>
+
+      {user ? (
         <ImageUpload username={user.displayName} />
       ):(
         <h3>Login to Upload</h3>

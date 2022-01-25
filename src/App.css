@@ -4,12 +4,7 @@
 .app {
   background-color: #fafafa;
 }
-.app_signup {
-  display: flex;
-  text-align: center;
-  flex-direction: column;
-  background-color: #fafafa;
-}
-.app__loginContainer {
+.app__posts {
   
 }
+
