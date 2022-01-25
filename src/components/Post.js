@@ -1,6 +1,7 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import Avatar from '@mui/material/Avatar';
 import './Post.css';
+import { db } from '../firebase'
 
 function Post({ postId, username, caption, imageUrl }) {
     const [comments, setComments] = useState([]);
@@ -32,7 +33,17 @@ function Post({ postId, username, caption, imageUrl }) {
                 <h3>{username}</h3>
             </div>
             <img className="post__img" src={imageUrl} alt='' />
-            <div className="post__text"><strong>{username}</strong> {caption}</div>
+            <h4 className="post__text"><strong>{username}</strong> {caption}</h4>
+
+            <form>
+                <input
+                    className="post__input"
+                    type="text"
+                    placeholder="Add a comment..."
+                    value={comment}
+                    onChange={(e) => setComments(e.target.value)}
+                    />
+            </form>
 
         </div>
     )
