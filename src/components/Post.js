@@ -2,8 +2,24 @@ import React, { useState } from 'react'
 import Avatar from '@mui/material/Avatar';
 import './Post.css';
 
-function Post({ username, caption, imageUrl }) {
+function Post({ postId, username, caption, imageUrl }) {
     const [comments, setComments] = useState([]);
+
+    useEffect(() => {
+        let unsubscribe;
+        if(postId) {
+            unsubscribe = db
+                .collection('posts') // go to posts
+                .doc(postId) // checkout specific post id
+                .collection("comments") // go to comments
+                .onSnapshot((snapshot) => {
+                    setComments(snapshot.docs.map((doc) => doc.data())) // snapshot listener
+                });
+        }
+        return () => {
+            unsubscribe();
+        };
+    }, [postId]);
 
     return (
         <div className="post__body">
@@ -11,7 +27,7 @@ function Post({ username, caption, imageUrl }) {
                 <Avatar
                     className="post_avatar" 
                     alt='username'
-                    src='imageUrl' 
+                    src='avatarUrl' 
                 />
                 <h3>{username}</h3>
             </div>
