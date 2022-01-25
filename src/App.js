@@ -6,6 +6,7 @@ import Post from './components/Post';
 import { db, auth } from './firebase';
 import { Button, Input, Box } from '@material-ui/core';
 import ImageUpload from './components/ImageUpload';
+import InstagramEmbed from 'react-instagram-embed';
 
 function App() {
   const [posts, setPosts] = useState([]); // post hook, fetch post data from state
@@ -38,9 +39,22 @@ function App() {
         <h3>Post should be loading here</h3>
         <div className="app__posts">
           {
-            displayPosts
-          }
+          posts.map(({ id, post }) => (
+          <Post key={id} username={post.username} caption={post.caption} imgUrl={post.imageUrl} />
+          ))
+        }
         </div>
+        <InstagramEmbed
+          url='https://instagr.am/p/Zw9o4/'
+          maxWidth={320}
+          hideCaption={false}
+          containerTagName='div'
+          protocol=''
+          injectScriptonLoading={() => {}}
+          onSuccess={() => {}}
+          onAfterRender={() => {}}
+          onFailure={() => {}}
+          />
 
       {user ? (
         <ImageUpload username={user.displayName} />

@@ -1,4 +1,4 @@
-2:50
+3:00
 
 These are my personal notes. Normally any terminal commands I use to add libraries or tools I'll put in here a long with other bits of code I thought were particularly interesting or useful.
 
@@ -16,6 +16,7 @@ npm install -g firebase-tools
 yarn add @emotion/react
 npm install @mui/material
 yarn add @emotion/styled
+npm i react-instagram-embed
 
 ColorZilla
 
