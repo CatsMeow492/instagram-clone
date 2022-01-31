@@ -26,7 +26,7 @@ function App() {
     }, []);
 
   const displayPosts = posts.map(({ id, post }) => (
-    <Post key={id} username={post.username} caption={post.caption} imgUrl={post.imageUrl} />
+    <Post key={id} username={post.username} caption={post.caption} imgUrl={post.imageUrl} user={user} />
   ));
 
   return (

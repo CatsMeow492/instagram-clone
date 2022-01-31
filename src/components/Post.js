@@ -3,7 +3,7 @@ import Avatar from '@mui/material/Avatar';
 import './Post.css';
 import { db } from '../firebase'
 
-function Post({ postId, username, caption, imageUrl }) {
+function Post({ postId, username, caption, imageUrl, user }) {
     const [comments, setComments] = useState([]);
     const [comment, setComment] = useState([]);
 
@@ -24,7 +24,12 @@ function Post({ postId, username, caption, imageUrl }) {
     }, [postId]);
 
     const postComment = (event) => {
+        event.preventDefault();
 
+        db.collection("posts").doc(postId).collection('comments').add({
+            text: comment,
+            username: user.displayName,
+        })
     }
 
     return (
