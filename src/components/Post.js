@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import Avatar from '@mui/material/Avatar';
 import './Post.css';
 import { db } from '../firebase'
+import firebase from "firebase/compat/app";
 
 function Post({ postId, username, caption, imageUrl, user }) {
     const [comments, setComments] = useState([]);
@@ -14,6 +15,7 @@ function Post({ postId, username, caption, imageUrl, user }) {
                 .collection('posts') // go to posts
                 .doc(postId) // checkout specific post id
                 .collection("comments") // go to comments
+                .orderBy('timestamp', 'desc') // order comments by timestamp
                 .onSnapshot((snapshot) => {
                     setComments(snapshot.docs.map((doc) => doc.data())) // snapshot listener
                 });
@@ -29,7 +31,9 @@ function Post({ postId, username, caption, imageUrl, user }) {
         db.collection("posts").doc(postId).collection('comments').add({
             text: comment,
             username: user.displayName,
-        })
+            timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+        });
+        setComment('');
     }
 
     return (
@@ -53,23 +57,27 @@ function Post({ postId, username, caption, imageUrl, user }) {
                 ))}
             </div>
 
-            <form className="post__commentBox">
-                <input
-                    className="post__input"
-                    type="text"
-                    placeholder="Add a comment..."
-                    value={comment}
-                    onChange={(e) => setComments(e.target.value)}
-                    />
-                <button 
-                    disabled={!comment}
-                    className="post__button"
-                    type="submit"
-                    onClick={postComment}
-                >
-                    Post
-                </button>
-            </form>
+         
+                    <form className="post__commentBox">
+                        <input
+                                className="post__input"
+                                type="text"
+                                placeholder="Add a comment..."
+                                value={comment}
+                                onChange={(e) => setComments(e.target.value)}
+                                />
+                        <button 
+                                disabled={!comment}
+                                className="post__button"
+                                type="submit"
+                                onClick={postComment}
+                            >
+                            Post
+                        </button>
+                    </form>
+           
+
+
 
         </div>
     )

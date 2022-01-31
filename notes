@@ -1,4 +1,4 @@
-3:14
+3:21
 
 These are my personal notes. Normally, any terminal commands I use to add libraries or tools I'll put in here a long with other bits of code I thought were particularly interesting or useful.
 
@@ -31,3 +31,6 @@ object-fit: contain;
 updated import statements for MUI were kind of a nightmare to find.  For future projects; 
 
 import { Button, Input, Box } from '@material-ui/core';
+
+firebase has updated their import statements:
+import firebase from "firebase/compat/app";

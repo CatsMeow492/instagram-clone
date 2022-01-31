@@ -36,7 +36,6 @@ function App() {
     <Header />
 
     <div className="App">
-        <h3>Post should be loading here</h3>
         <div className="app__posts">
           <div className="app__postsLeft">
               {
